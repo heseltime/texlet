@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+
+<div class="container py-0">
+    <h2>Sign up</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% load crispy_forms_tags %} 
+
+        {{ signup_form|crispy }}                    
+        <button class="btn btn-primary" type="submit">Sign up now</button>
+    </form>
+    <p class="text-center">If you already have an account, <a href="/signin">signin</a> instead.</p>
+</div>
+
+{% endblock %}

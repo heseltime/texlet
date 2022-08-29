@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}texlet-Profile{% endblock %}
+
+{% block content %}
+
+<div class="container py-0">
+    <h2>Account removal</h2>
+
+    <!-- deletion reason form here -->
+
+    <p class="">Remove account and all metadata? Final: <a href="/delete-account" alt="Delete account"><button type="button" class="btn btn-danger">Delete account</button></a></p>
+    <p class="">This action cannot be undone.</p>
+    <p class="">Keep in mind: metadata can be deleted for both <a href="/manage-profile" alt="Manage profile">user profile data</a> as well as in specific document actions, as needed.</p>    
+    
+    <p class="text-center"><a href="/">Home</a></p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Letter data{% endblock %}
+
+{% block content %}
+
+<div class="container py-0">
+    <!--<h2>Letter data</h2>-->
+    <p>Generates to the following template (pdf-file, mouseover to zoom)</p>
+
+    <form action="" method="post">
+        <div class="row">
+            <div class="col-md">
+                <img
+                    src="{% static 'texapp/preview/letter.jpg' %}"
+                    data-magnify-src="{% static 'texapp/preview/letter.jpg' %}"
+                    alt="Preview sample" width="430px" height="608px"
+                />
+            <h2 class="mb-3">Letter data</h2>
+            <form action="" method="post">
+                {% csrf_token %}
+
+                {% load crispy_forms_tags %}
+
+                {{ form|crispy }}
+
+                <!--{% for field in form %}
+                {% if field.name != 'addressee' %}
+                <div class="py-1">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                </div>
+                {% else %}
+                {% for radio in form.addressee %}
+                <label for="{{ radio.id_for_label }}">
+                    {{ radio.choice_label }}
+                    <span class="radio d-none">{{ radio.tag }}</span>
+                </label>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}-->
+
+                {% if user.is_authenticated %}
+                <input class="btn btn-primary" type="submit" value="Submit" style="margin: 10px 15px 20px">
+                {% else %}
+                <input class="btn btn-primary" type="submit" value="Submit" style="margin: 10px 15px 20px" disabled>
+                <p>Please <a href="/signin" alt="Sign In">sign in</a> or, if you do not have an account yet, <a href="/signup" alt="Sign In">sign up</a>, to use this app.</p>
+                {% endif %}
+                </div>
+            </form>
+            
+            <div class="col-sm">
+
+                <!-- secondary form here -->
+                <h2 class="mb-3">Addressee metadata</h2>
+                <label for="id_addressee_0" class="tester">
+                    <!--<input type="radio" name="id_addressee" class="d-none" id="id_addressee_0" checked>-->
+                    <div class="card border-light small mb-3 active" style="">
+                        <div class="card-header">No direct Addressee - leave blank (---------)</div>
+                        <div class="card-body">
+                            <h5 class="card-title">To Whom It May Concern</h5>
+                            <p class="card-text"><b>Default option/Add a new addressee or select one to make it personal</b></p>
+                        </div>
+                    </div>
+                </label>
+                
+                {% for addressee in addressees %}
+                <label for="id_addressee_{{ forloop.counter }}">
+                    <!--<input type="radio" name="id_addressee" class="d-none" id="{{ addressee.id }}">-->
+                    <div class="card border-light small mb-3" style="">
+                        <div class="card-header">
+                            {% if not addressee.formal_relationship %}({% endif %}
+                            {{ addressee.salutation }}
+                            {% if not addressee.formal_relationship %}){% endif %}
+                            </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {% if addressee.preferred_name %}
+                                {{ addressee.first_name }} "{{ addressee.preferred_name }}" {{ addressee.last_name }}
+                                {% else %}
+                                {{ addressee.first_name }} {{ addressee.last_name }}
+                                {% endif %}</h5>
+                            <p class="card-text">
+                                {{ addressee.street_number }} {{ addressee.street_address }} <br/>
+                                {{ addressee.city }}, {{ addressee.zip_code }}
+                            </p>
+                        </div>
+                    </div>
+                </label>
+                {% endfor %}
+                
+
+                <form action="add-addressee" method="post" class="small">
+                    <div class="card-header mb-2 pb-0"><h6>Add new Addressee</h6></div>
+
+                    {% csrf_token %}
+
+                    {% load crispy_forms_tags %}
+
+                    {{ form_secondary|crispy }}
+
+                    {% if user.is_authenticated %}
+                    <input class="btn btn-secondary" type="submit" value="Add now" style="margin: 10px 15px 20px">
+                    <!--<p>More management options <a href="/" alt="addressee data management">here</a></p>-->
+                    {% else %}
+                    <input class="btn btn-secondary" type="submit" value="Add now" style="margin: 10px 15px 20px" disabled>
+                    {% endif %}
+                    
+                </form>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+
+{% endblock %}

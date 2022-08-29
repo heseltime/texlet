@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}texlet-Profile{% endblock %}
+
+{% block content %}
+
+<div class="container py-0">
+    <h2>Profile metadata</h2>
+
+    <form action="" method="post">
+        <div class="row">
+            <div class="col-md">
+            {% csrf_token %}
+
+            {% load crispy_forms_tags %}
+
+            {{ form|crispy }}
+
+            <input class="btn btn-primary" type="submit" value="Submit" style="margin: 10px 15px 20px">
+
+            </div>
+            
+            <div class="col-sm">
+                {% if profile %}
+                <p>current configuration for {{ user.username }}</p>
+                <ul class="list-group">
+                    <li class="list-group-item">{{ profile.first_name }}</li>
+                    <li class="list-group-item">{{ profile.last_name }}</li>
+                    <li class="list-group-item">{{ profile.street_address }}</li>
+                    <li class="list-group-item">{{ profile.street_number }}</li>
+                    <li class="list-group-item">{{ profile.zip_code }}</li>
+                    <li class="list-group-item">{{ profile.city }}</li>
+                </ul>
+                <a href="/delete-profile" alt="delete user profile"><button type="button" class="btn btn-danger mt-2">delete profile</button></a>
+
+                {% else %}
+                <p>by configuring your user profile, this data can be autopopulated to documents for you</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </form>
+
+    <p class="text-center">Remove account and all metadata? <a href="/delete-account-check">Delete account</a></p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+%-----------------------------------------------------------------------------%
+
+% Letter class
+\documentclass[a4paper, 10pt]{letter}
+
+% packages
+\usepackage[ansinew]{inputenc} % German umlaute, direct entry (or from db): windows specific
+
+% Name of sender
+\name{ {% if addressee.formal_relationship %} {{ first_name }} {{ last_name }} {% else %} {{ first_name }} {% endif %} }
+
+% Signature of sender
+\signature{ {% if addressee.formal_relationship %} {{ first_name }} {{ last_name }} {% else %} {{ first_name }} {% endif %} }
+
+% Address of sender as metadata
+{% if user_id %}
+\address
+{
+    {{ first_name }} {{ last_name }} \\
+    {{ street_number }} {{ street_address }} \\
+    {{ zip_code }}, {{ city }}
+}
+{% endif %}
+
+%-----------------------------------------------------------------------------%
+
+\begin{document}
+
+\date{ {{ date }} }
+
+% Name and address of addresse
+\begin{letter}
+{
+    {% if addressee %}
+    {{ addressee.first_name }} {{ addressee.last_name }},\\
+    {{ addressee.street_number }} {{ addressee.street_address }},\\
+    {{ addressee.city }} {{ addressee.zip_code }} \\
+    {% endif %}
+    {% if reference_bit %}
+    Re: {{ reference }} % needs work, better impl.
+    {% else %}
+    Re: - % begin part seems to require content
+    {% endif %}
+    
+}
+
+% Opening statement
+{% if addressee %}
+    {% if addressee.formal_relationship %}
+    \opening{ {{ greeting }} {{ addressee.salutation }} {{ addressee.last_name }}, }
+    {% else %}
+        {% if addressee.preferred_name %}
+        \opening{ {{ greeting }} {{ addressee.preferred_name }}, }
+        {% else %}
+        \opening{ {{ greeting }} {{ addressee.first_name }}, }
+        {% endif %}
+    {% endif %}
+{% else %}
+\opening{ To Whom It May Concern, }
+{% endif %}
+
+
+% Letter body
+
+{{ body }}
+
+% Closing statement
+\closing{ {{ sign_off }}, }
+
+\ps
+
+{% if ps %}
+P.S. 
+
+{{ ps }}
+{% endif %}
+
+{% if enclosed %}
+\encl{ {{ enclosed }} }
+{% endif %}
+
+\end{letter}
+\end{document}
+%-----------------------------------------------------------------------------%

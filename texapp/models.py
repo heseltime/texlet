@@ -65,7 +65,7 @@ class ProfileAddressee(models.Model):
     first_name = models.CharField(max_length=20)
     preferred_name = models.CharField(max_length=20, blank=True)
     formal_relationship = models.BooleanField()
-    salutation = models.CharField(max_length=50, blank=True)
+    salutation = models.CharField('Salutation: only used for formal relationships (typically "Mr", "Mrs" or "Ms")   ',max_length=50, blank=True)
     last_name = models.CharField(max_length=50)
     street_address = models.CharField(max_length=50)
     street_number = models.IntegerField()
@@ -128,11 +128,11 @@ class Letter(models.Model):
     addressee = models.ForeignKey(ProfileAddressee, on_delete=models.CASCADE, blank=True, null=True, default='') 
 
     reference = models.CharField(max_length=100)
-    reference_bit = models.BooleanField()
+    reference_bit = models.BooleanField('Include reference in letter?')
     greeting = models.CharField(max_length=50, blank=True, default='Dear')
     body = models.CharField(max_length=1000)
     sign_off = models.CharField(max_length=50, blank=True, default='Best')
-    ps = models.CharField(max_length=250, blank=True, default='') 
+    ps = models.CharField('PS',max_length=250, blank=True, default='') 
     enclosed = models.CharField(max_length=100, blank=True, default='')
     date = models.DateField(default=datetime.date.today)
 
@@ -158,6 +158,7 @@ class LetterForm(ModelForm):
             }),
             'reference_bit': CheckboxInput(attrs={
                 'class': 'form-check',
+                'title': 'Include in letter?',
             }),
             'salutation': TextInput(attrs={
                 'placeholder': 'Dear ', 
@@ -175,6 +176,7 @@ class LetterForm(ModelForm):
             }),
             'ps': Textarea(attrs={
                 'placeholder': '', 
+                'title': 'PS',
                 'style': 'height: 100px;',
                 'class': 'form-control'
             }),

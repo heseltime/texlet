@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'texapp', 
     # 3rd pary
     'crispy_forms',
+    'fontawesomefree',
 ]
 
 # 3rd pary required co-definitions
@@ -145,6 +146,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "texlet/static",
     #BASE_DIR / "texlet/boot", # in static
 ]
+
+# --- prepping whitenoise
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

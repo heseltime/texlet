@@ -14,6 +14,8 @@
     <script src="{% static 'texlet/js/main.js' %}"></script>
     <script src="{% static 'texlet/js/jquery.magnify.js' %}"></script>
 
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+
 </head>
 
 <body>
@@ -53,7 +55,7 @@
 
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
     <span class="navbar-text">
-        <i>the easy-to-use interface for those small-scale standard LaTeX use cases: a <b>pdf-document-generation-tool with transparent metadata-capability</b></i>
+        <i>the easy-to-use interface for those small-scale standard LaTeX use cases: a <b>pdf-document-generation-tool with transparent metadata-capability</b> | <a href="#" alt="Tweet this">Tweet <i class="fa-brands fa-twitter"></i></a> </i>
     </span>
 </nav>
 
@@ -74,5 +76,17 @@
 
 {% block content %}
 {% endblock %}
+
+<footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="/texapp/api" class="nav-link px-2 text-muted">API</a></li>
+        <li class="nav-item"><a href="/texpay" class="nav-link px-2 text-muted">Full-Library Access</a></li>
+        <li class="nav-item"><a href="/texapp/faqs" class="nav-link px-2 text-muted">Info &amp; FAQs</a></li>
+        <li class="nav-item"><a href="/texapp/privacy" class="nav-link px-2 text-muted">Privacy Policy</a></li>
+        <li class="nav-item"><a href="/texapp/contact" class="nav-link px-2 text-muted">Inquiries</a></li>
+    </ul>
+    <p class="text-center text-muted">© {% now "Y" %} texlet.net</p>
+</footer>
 
 </body>

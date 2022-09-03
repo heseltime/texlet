@@ -7,18 +7,18 @@
 {% block content %}
 
 <div class="container py-0">
-    <!--<h2>Letter data</h2>-->
-    <p>Generates to the following template (pdf-file, mouseover to zoom)</p>
+    <!--<h2>Letter </h2>-->    
 
     <form action="" method="post">
         <div class="row">
             <div class="col-md">
+                <p><i class="fa-solid fa-magnifying-glass"></i> Generates to the following template (pdf-file, mouseover to zoom)</p>
                 <img
                     src="{% static 'texapp/preview/letter.jpg' %}"
                     data-magnify-src="{% static 'texapp/preview/letter.jpg' %}"
                     alt="Preview sample" width="430px" height="608px"
                 />
-            <h2 class="mb-3">Letter data</h2>
+            <h2 class="mb-3"><i class="fa-solid fa-envelope"></i> Letter data</h2>
             <form action="" method="post">
                 {% csrf_token %}
 
@@ -52,7 +52,7 @@
             </form>
             
             <div class="col-sm">
-
+                <a href="/texpay" alt="Get Texlet-Library Access Now"><img src="{% static 'texlet\img\shelf.jpg' %}" alt="Get Texlet-Library Access Now" width="280" /></a>
                 <!-- secondary form here -->
                 <h2 class="mb-3">Addressee metadata</h2>
                 <label for="id_addressee_0" class="tester">

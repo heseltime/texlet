@@ -1,0 +1,25 @@
+/* gentle boostrap card radio options */
+label {
+width: 100%;
+font-size: 1rem;
+}
+  
+label > .card {
+-webkit-box-shadow: none;
+box-shadow: none;
+border: 2px solid transparent;
+border-radius: 4px;
+}
+  
+label > .card:hover {
+cursor: pointer;
+}
+
+label > .card.active {
+background-color: linen;
+-webkit-transition: background-color .2s;
+-o-transition: background-color .2s;
+transition: background-color .2s;
+}
+
+    
